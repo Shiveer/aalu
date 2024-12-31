@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2025</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #001f3f, #0074D9);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-box {
+            position: relative;
+            width: 220px;
+            height: 160px;
+            background: linear-gradient(145deg, #FF851B, #FF4136);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s, box-shadow 0.3s ease;
+        }
+
+        .letter-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Triangular flap */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-top: 75px solid #FF4136;  /* Flip the triangle to point upwards */
+            transform-origin: top;
+            transform: rotateX(0);
+            transition: transform 0.7s ease-in-out;
+            margin-left: -110px;
+        }
+
+        .letter-box.open .flap {
+            transform: rotateX(180deg); /* Keep the flap open animation */
+        }
+
+        .button-2025 {
+            display: none;
+            font-size: 1.5em;
+            color: white;
+            background-color: #0074D9;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-2025:hover {
+            background-color: #001f3f;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.8em;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s, visibility 1s;
+        }
+
+        .show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: radial-gradient(circle, #FF4136, #85144b);
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #fff;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-200px) translateX(20px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-400px) translateX(-20px);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy new yearrr merii punturuu ❤️❤️</h1>
+    <p>yo syaaano letter maa dabauu pukulu</p>
+    
+    <div class="letter-box" onclick="toggleLetter()">
+        <div class="flap"></div>
+        <button class="button-2025 hidden" onclick="showMessage(event)">✨ 2025 ✨</button>
+    </div>
+
+    <div id="message" class="message">Happy New Year! May this year be filled with endless joy, love, and success for you! 🎉❤️</div>
+
+    <script>
+        function toggleLetter() {
+            const letterBox = document.querySelector('.letter-box');
+            const button2025 = document.querySelector('.button-2025');
+            const isOpen = letterBox.classList.contains('open');
+
+            if (!isOpen) {
+                letterBox.classList.add('open');
+                setTimeout(() => {
+                    button2025.classList.remove('hidden');
+                    button2025.style.display = 'block'; // Ensure button is visible
+                }, 500); // Delay to match the flap animation
+            } else {
+                letterBox.classList.remove('open');
+                setTimeout(() => {
+                    button2025.classList.add('hidden');
+                    button2025.style.display = 'none'; // Hide button
+                }, 500);
+                hideMessage(); // Hide the message when closing the letter
+            }
+        }
+
+        function showMessage(event) {
+            event.stopPropagation(); // Prevent click event from propagating to the letter
+            const message = document.getElementById('message');
+            message.classList.add('show');
+            showBalloons();
+        }
+
+        function hideMessage() {
+            const message = document.getElementById('message');
+            message.classList.remove('show');
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove(); // Remove balloon after animation
+            }, 5000);
+        }
+
+        function showBalloons() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createBalloon, i * 200); // Delay balloon creation for staggered effect
+            }
+        }
+    </script>
+</body>
+</html>
